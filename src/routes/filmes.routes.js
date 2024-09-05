@@ -1,3 +1,8 @@
+import { Router } from "express"
+const filmesRoutes = Router()
+
+
+
 const filmesMarcantes = [
     {
         id: 1001,
@@ -18,6 +23,8 @@ const filmesMarcantes = [
         emCartaz: true
     }
 ]
-app.get("/filmes", (req, res) => {
+filmesRoutes.get("/", (req, res) => {
     return res.status(200).json(filmesMarcantes)
     })
+
+export default filmesRoutes
