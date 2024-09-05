@@ -1,18 +1,17 @@
-import express from "express"
-import { config } from "dotenv"
+import express from "express";
+import { config } from "dotenv";
 
-import routes from "./routes/index.routes.js"
+import routes from "./routes/index.routes.js";
 
-config()
+config();
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
-const app = express()
-app.use(routes)
+const app = express();
+app.use(routes);
 
-app.use(express.json())
-
+app.use(express.json());
 
 app.listen(port, () => {
-    console.log(`Servidor tá no doze http://localhost:${port}`)
-})
+  console.log(`Servidor tá no doze http://localhost:${port}`);
+});
