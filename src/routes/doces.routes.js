@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { response, Router } from "express";
 const docesRoutes = Router();
 
 const guloseimas = [
@@ -36,23 +36,42 @@ docesRoutes.post("/", (req, res) => {
   return res.status(201).json(guloseimas);
 });
 
-
 //rota para buscar um elemento especifico do array guloseimas
-docesRoutes.get("/:id", (req,res) => {
-const { id } = req.params
+docesRoutes.get("/:id", (req, res) => {
+  const { id } = req.params;
 
-//console.log(id);
+  //console.log(id);
 
-const guloseima = guloseimas.find((doce) => doce.id === Number(id)
-)
-console.log(guloseima);
+  const guloseima = guloseimas.find((doce) => doce.id === Number(id));
+  console.log(guloseima);
 
+  if (!guloseima) {
+    return res.status(404).send({ message: "guloseima não encontrada!!!!!!!" });
+  }
 
-if (!guloseima){
-    return res.status(404).send({message: "guloseima não encontrada!!!!!!!"})
-}
+  return res.status(200).send(guloseima);
+});
 
-return res.status(200).send(guloseima)
-})
+//rota para editar uma guloseima
+docesRoutes.put("/:id", (req, res) => {
+  const { id } = req.params;
+
+  const guloseima = guloseimas.find((doce) => doce.id === Number(id));
+  console.log(guloseima);
+
+  if (!guloseima) {
+    return res.status(404).send({ message: "guloseima não encontrada!!!!!!!" });
+  }
+
+  const { nome, preco} = req.body;
+
+  guloseima.nome = nome
+  guloseima.preco = preco
+
+  return res.status(200).send({
+    message:"Guloseima atualizada !!!!!!",guloseima
+  })
+});
+
 
 export default docesRoutes;
